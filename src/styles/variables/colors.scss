@@ -1,0 +1,41 @@
+/*
+ * Copyright (c) 2025 MariaDB plc. All rights reserved, proprietary and confidential.
+ *
+ * This is UNPUBLISHED PROPRIETARY SOURCE CODE AND A TRADE SECRET of MariaDB plc, www.mariadb.com
+ */
+$primary: #0e9bc0;
+$primary-darken-1: #0a6b82;
+$secondary: #0e6488;
+$secondary-lighten-1: #2f99a3;
+$secondary-darken-1: #0c4e6d;
+$tertiary: #003545;
+
+$foreground: #424f62; // default color of text, icons, etc
+$anchor: #2d9cdb; // color for anchor link
+$grayed-out: #a6a4a6;
+$code-color: #525a65; // color for code text
+$instruction: #6c7c7b; // instruction text
+
+$input-border: #a3bac0; // Used for input border, dropdown border, dropdown arrow icon
+$label: #6c7c7b; // Used for input labels, prefix/suffix
+
+$error: #eb5757;
+$info: #2d9cdb;
+$success: #7dd012;
+$warning: #f59d34;
+
+$alert: $error;
+$notice: $code-color;
+$debug: $secondary-lighten-1;
+
+$tbl-header: #6c7c7b;
+$table-border: #e7eef1;
+$table-border-strong: #bed1da;
+$tr-hovered-color: #f2fcff;
+$selected-tr-color: #e3f5fb;
+
+$separator: #e8eef1;
+$card-border-color: #e3e6ea;
+$light-gray-box: #fbfbfb; // for container, boxes
+
+$highlight-green: #abc74a;

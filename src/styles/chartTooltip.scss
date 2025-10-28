@@ -1,0 +1,47 @@
+/*
+ * Copyright (c) 2025 MariaDB plc. All rights reserved, proprietary and confidential.
+ *
+ * This is UNPUBLISHED PROPRIETARY SOURCE CODE AND A TRADE SECRET of MariaDB plc, www.mariadb.com
+ */
+@use './variables/colors' as colors;
+.chartjs-tooltip {
+  opacity: 1;
+  z-index: 9999;
+  background: white;
+  color: colors.$foreground;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  max-width: 500px;
+  padding: 16px;
+  width: max-content;
+  th,
+  td {
+    font-size: 12px;
+    vertical-align: baseline;
+  }
+}
+.chartjs-tooltip-key {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+.chartjs-tooltip--transform-left {
+  transform: translate(-100%, 0);
+}
+.chartjs-tooltip--transform-right {
+  transform: translate(0, 0);
+}
+.chartjs-tooltip--transform-center {
+  transform: translate(-50%, 0);
+}
+.query-editor-chartjs-tooltip {
+  td {
+    &:first-child {
+      padding-right: 16px;
+    }
+    &:last-child {
+      word-break: break-all;
+    }
+  }
+}

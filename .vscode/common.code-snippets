@@ -1,0 +1,13 @@
+{
+  "MaxScale blurb template": {
+    "prefix": "headerBase",
+    "body": [
+      "/*",
+      " * Copyright (c) 2025 MariaDB plc. All rights reserved, proprietary and confidential.",
+      " *",
+      " * This is UNPUBLISHED PROPRIETARY SOURCE CODE AND A TRADE SECRET of MariaDB plc, www.mariadb.com",
+      " */",
+    ],
+    "description": "MaxScale blurb header",
+  },
+}

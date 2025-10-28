@@ -1,0 +1,61 @@
+/*
+ * Copyright (c) 2025 MariaDB plc. All rights reserved, proprietary and confidential.
+ *
+ * This is UNPUBLISHED PROPRIETARY SOURCE CODE AND A TRADE SECRET of MariaDB plc, www.mariadb.com
+ */
+@use './variables/colors' as colors;
+.readonly-sql-code-wrapper {
+  background-color: colors.$separator;
+  height: 300px;
+}
+
+.v-tabs.workspace-tab-style {
+  width: unset !important;
+  .v-tab {
+    font-size: 0.75rem;
+    color: colors.$foreground;
+    text-transform: none;
+    letter-spacing: -0.01em;
+    .v-btn__content {
+      height: 100%;
+    }
+    &--selected {
+      color: colors.$primary;
+      &::after {
+        border: none;
+        opacity: 0.12;
+        background-color: colors.$primary;
+      }
+    }
+    &--err-tab {
+      color: colors.$error !important;
+      &:last-of-type {
+        border-color: colors.$error !important;
+      }
+    }
+  }
+  &.wke-tab-nav,
+  &.query-tab-nav {
+    .v-tab {
+      border-right: 1px solid colors.$table-border;
+    }
+    .v-slide-group__prev,
+    .v-slide-group__next {
+      color: colors.$foreground;
+      border-bottom: 1px solid colors.$table-border;
+      border-right: 1px solid colors.$table-border;
+      opacity: 1;
+      &--disabled {
+        color: #6c7c7b3f;
+      }
+    }
+  }
+
+  &.pagination-btn--small {
+    .v-slide-group__prev,
+    .v-slide-group__next {
+      flex: 0 1 36px;
+      min-width: 36px;
+    }
+  }
+}

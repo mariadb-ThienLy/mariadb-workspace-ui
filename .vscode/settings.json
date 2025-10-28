@@ -1,0 +1,15 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "build.*": "build.sh, copy_sources.sh, npm_install.sh, CMakeLists.txt",
+    "eslint*": ".eslint*, eslint*, .prettier*, .editorconfig, jsconfig*",
+    "package.json": "package-lock.json",
+    "vite.config.*": "vitest.config.*, vite-*"
+  },
+  "files.insertFinalNewline": true
+}

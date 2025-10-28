@@ -1,0 +1,22 @@
+{
+  "MaxScale_Vue_3_SFC": {
+    "prefix": "vBase",
+    "body": [
+      "<script setup>",
+      "/*",
+      " * Copyright (c) 2025 MariaDB plc. All rights reserved, proprietary and confidential.",
+      " *",
+      " * This is UNPUBLISHED PROPRIETARY SOURCE CODE AND A TRADE SECRET of MariaDB plc, www.mariadb.com",
+      " */",
+      "defineProps({})",
+      "</script>",
+      "",
+      "<template>",
+      "  <div></div>",
+      "</template>",
+      "",
+      "<style lang=\"scss\" scoped></style>",
+    ],
+    "description": "MaxScale Vue 3 SFC template",
+  },
+}

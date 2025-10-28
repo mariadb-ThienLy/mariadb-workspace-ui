@@ -1,0 +1,260 @@
+/*
+ * Copyright (c) 2025 MariaDB plc. All rights reserved, proprietary and confidential.
+ *
+ * This is UNPUBLISHED PROPRIETARY SOURCE CODE AND A TRADE SECRET of MariaDB plc, www.mariadb.com
+ */
+@use './variables/vuetify.scss' as vuetifyVar;
+@use './variables/colors' as colors;
+
+$all-colors: (
+  'primary': colors.$primary,
+  'primary-darken-1': colors.$primary-darken-1,
+  'secondary': colors.$secondary,
+  'secondary-lighten-1': colors.$secondary-lighten-1,
+  'secondary-darken-1': colors.$secondary-darken-1,
+  'tertiary': colors.$tertiary,
+  'foreground': colors.$foreground,
+  'anchor': colors.$anchor,
+  'grayed-out': colors.$grayed-out,
+  'code-color': colors.$code-color,
+  'instruction': colors.$instruction,
+  'input-border': colors.$input-border,
+  'label': colors.$label,
+  'error': colors.$error,
+  'info': colors.$info,
+  'success': colors.$success,
+  'warning': colors.$warning,
+  'alert': colors.$alert,
+  'notice': colors.$notice,
+  'debug': colors.$debug,
+  'tbl-header': colors.$tbl-header,
+  'table-border': colors.$table-border,
+  'table-border-strong': colors.$table-border-strong,
+  'tr-hovered-color': colors.$tr-hovered-color,
+  'selected-tr-color': colors.$selected-tr-color,
+  'separator': colors.$separator,
+  'card-border-color': colors.$card-border-color,
+  'light-gray-box': colors.$light-gray-box,
+  'highlight-green': colors.$highlight-green,
+);
+
+@mixin gen-cascade-class($property, $value) {
+  .#{$property}--#{$value} {
+    #{$property}: $value !important;
+  }
+  .#{$property}--#{$value}--all {
+    #{$property}: $value !important;
+    * {
+      #{$property}: $value !important;
+    }
+  }
+}
+
+@mixin border-utility($label, $value) {
+  .border--#{$label} {
+    border: thin solid $value !important;
+  }
+  .border-color--#{$label} {
+    border-color: $value !important;
+  }
+
+  @each $dir in (top, right, bottom, left) {
+    .border-#{$dir}--#{$label} {
+      border-#{$dir}: thin solid $value !important;
+    }
+    .border-#{$dir}-color--#{$label} {
+      border-#{$dir}-color: $value !important;
+    }
+  }
+}
+
+@mixin gen-non-border-class($properties) {
+  @each $property in $properties {
+    .#{$property}--none {
+      #{$property}: none !important;
+    }
+  }
+}
+
+@each $label, $value in $all-colors {
+  @include border-utility($label, $value);
+}
+@include gen-non-border-class((border, border-top, border-right, border-bottom, border-left));
+
+@include gen-cascade-class(cursor, default);
+@include gen-cascade-class(cursor, pointer);
+@include gen-cascade-class(cursor, help);
+@include gen-cascade-class(cursor, move);
+@include gen-cascade-class(cursor, grab);
+@include gen-cascade-class(cursor, text);
+@include gen-cascade-class(cursor, crosshair);
+@include gen-cascade-class(user-select, none);
+@include gen-cascade-class(pointer-events, none);
+
+.cursor--wait {
+  cursor: wait !important;
+  z-index: 1;
+  user-select: none !important;
+  * {
+    z-index: 0 !important;
+    user-select: none !important;
+    pointer-events: none !important;
+  }
+}
+
+.anchor-link {
+  text-decoration: none !important;
+  color: colors.$primary;
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
+
+.grayed-out-info {
+  padding-left: 2px;
+  font-size: 14px;
+  color: colors.$grayed-out;
+}
+
+.shadow-drop {
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25) !important;
+}
+
+.no-shadow {
+  box-shadow: none !important;
+}
+
+.pos--relative {
+  position: relative !important;
+}
+
+.pos--absolute {
+  position: absolute !important;
+}
+
+.label--required::after {
+  content: ' *';
+  color: colors.$error;
+  font-size: 0.75rem;
+  @extend .pos--relative;
+  font-weight: 500;
+  font-family: vuetifyVar.$heading-font-family;
+}
+
+.dragging-mask {
+  @extend .pos--absolute;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.rotate {
+  &-left {
+    transform: rotate(90deg);
+  }
+  &-up {
+    transform: rotate(180deg);
+  }
+  &-right {
+    transform: rotate(-90deg);
+  }
+  &-down {
+    transform: rotate(0deg);
+  }
+}
+
+.tbl-code {
+  width: 100%;
+  background-color: colors.$separator;
+  td {
+    color: colors.$code-color;
+    vertical-align: top;
+    padding-bottom: 4px;
+    width: auto;
+    &:first-of-type {
+      width: 1px;
+      padding-right: 16px;
+    }
+  }
+}
+
+.label-field {
+  font-size: 0.75rem !important;
+  display: inline-block;
+  margin-bottom: 4px;
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.highlight-changes-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: colors.$highlight-green;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.icon--rotating {
+  animation: rotating 1.5s linear infinite;
+}
+
+.tooltip-arrow {
+  contain: initial;
+  overflow: visible;
+  &:after {
+    border: solid transparent;
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    border-top-color: white;
+    border-width: 8px;
+    border-top-width: 6px;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    z-index: -1;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  &--top-left {
+    &:after {
+      transform: rotate(180deg);
+      bottom: 100%;
+      left: 36px;
+    }
+    &::before {
+      top: -2px;
+      left: 35px;
+      transform: rotate(45deg);
+    }
+  }
+  &--top-right {
+    &:after {
+      transform: rotate(180deg);
+      bottom: 100%;
+      right: 36px;
+    }
+    &::before {
+      top: -2px;
+      right: 35px;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.line-height--normal {
+  line-height: normal;
+}
