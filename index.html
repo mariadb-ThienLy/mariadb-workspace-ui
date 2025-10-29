@@ -15,6 +15,17 @@
       </strong>
     </noscript>
     <mariadb-workspace class="pa-6"></mariadb-workspace>
+
     <script type="module" src="./src/main.dev.js"></script>
+
+    <script type="module">
+      // Wait for the custom element to be defined
+      await customElements.whenDefined('mariadb-workspace')
+
+      // Example: Access the exposed queryConnService from the host app
+      const workspaceElement = document.querySelector('mariadb-workspace')
+
+      workspaceElement.queryConnService.disconnectAll()
+    </script>
   </body>
 </html>

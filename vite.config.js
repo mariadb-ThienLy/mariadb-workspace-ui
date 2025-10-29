@@ -57,7 +57,7 @@ export default ({ mode }) => {
     exclude: ['node_modules/.cache'],
     esbuild: { pure: ['console.log'] },
     build: {
-      outDir: 'mariadb-workspace',
+      outDir: 'dist',
       emptyOutDir: true,
       // Inline assets smaller than 100kb as base64 (includes codicon font ~90kb)
       assetsInlineLimit: 100000,

@@ -7,6 +7,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Release artifacts
+*.tgz
+
 node_modules
 .DS_Store
 dist
@@ -27,5 +30,3 @@ coverage
 
 # dev env
 .env.development
-
-dist/

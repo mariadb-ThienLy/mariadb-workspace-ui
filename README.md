@@ -6,10 +6,10 @@ the workspace UI.
 
 ## Installation
 
-Install from GitHub:
+Install from GitHub Release:
 
 ```bash
-npm install github:mariadb-ThienLy/mariadb-workspace-ui#v1.0.0 monaco-editor@0.33.0
+npm install https://github.com/mariadb-ThienLy/mariadb-workspace-ui/releases/download/v1.0.0/mariadb-workspace-ui-1.0.0.tgz monaco-editor@0.33.0
 ```
 
 Or add to your `package.json`:
@@ -17,7 +17,7 @@ Or add to your `package.json`:
 ```json
 {
   "dependencies": {
-    "@mariadb/workspace-ui": "github:mariadb-ThienLy/mariadb-workspace-ui#v1.0.0",
+    "@mariadb/workspace-ui": "https://github.com/mariadb-ThienLy/mariadb-workspace-ui/releases/download/v1.0.0/mariadb-workspace-ui-1.0.0.tgz",
     "monaco-editor": "^0.33.0"
   }
 }
@@ -71,6 +71,68 @@ app.mount('#app')
 <template>
   <mariadb-workspace />
 </template>
+```
+
+---
+
+## Accessing Exposed Internal Methods
+
+The web component exposes certain internal methods to the host application for programmatic control. Currently, the `queryConnService` module is exposed as a proof of concept.
+
+### Available Methods
+
+- **`queryConnService.disconnectAll()`** - Disconnects all query connections
+
+### Usage Example
+
+```js
+// Wait for the custom element to be defined
+await customElements.whenDefined('mariadb-workspace')
+
+// Get reference to the web component element
+const workspaceElement = document.querySelector('mariadb-workspace')
+
+// Call exposed methods
+await workspaceElement.queryConnService.disconnectAll()
+```
+
+### In Vue/React Applications
+
+**Vue 3:**
+```vue
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const workspaceRef = ref(null)
+
+onMounted(async () => {
+  await customElements.whenDefined('mariadb-workspace')
+  // Access via template ref
+  await workspaceRef.value.queryConnService.disconnectAll()
+})
+</script>
+
+<template>
+  <mariadb-workspace ref="workspaceRef" />
+</template>
+```
+
+**React:**
+```jsx
+import { useRef, useEffect } from 'react'
+
+function App() {
+  const workspaceRef = useRef(null)
+
+  useEffect(() => {
+    customElements.whenDefined('mariadb-workspace').then(() => {
+      // Access via ref
+      workspaceRef.current.queryConnService.disconnectAll()
+    })
+  }, [])
+
+  return <mariadb-workspace ref={workspaceRef} />
+}
 ```
 
 ---
@@ -140,7 +202,7 @@ If you want to use the web component directly from a CDN without npm or a bundle
     <!-- Load web component -->
     <script type="module">
       await import(
-        'https://cdn.jsdelivr.net/gh/mariadb-ThienLy/mariadb-workspace-ui@v1.0.0/mariadb-workspace/index.js'
+        'https://cdn.jsdelivr.net/gh/mariadb-ThienLy/mariadb-workspace-ui@v1.0.0/dist/index.js'
       )
       console.log('Web component loaded')
     </script>
@@ -222,42 +284,34 @@ npm run release:major
 
 The release script automatically:
 
-1. ✅ Builds the web component
-2. ✅ Commits built files to Git
-3. ✅ Updates version in `package.json`
-4. ✅ Creates a Git tag
-5. ✅ Pushes to GitHub
+1. ✅ Updates version in `package.json`
+2. ✅ Creates a Git tag
+3. ✅ Builds the web component
+4. ✅ Creates a tarball (`.tgz` file)
+5. ✅ Pushes tag to GitHub
 
-**Development Force Push (for testing):**
+**After running the release script:**
 
-```bash
-npm run release:dev
-```
-
-This will:
-
-- Build the web component
-- Amend the last commit with built files
-- Force push to GitHub
-- Force update the current version tag
-
-⚠️ **Warning:** This rewrites Git history. Only use during development/testing!
+1. Go to GitHub Releases: `https://github.com/mariadb-ThienLy/mariadb-workspace-ui/releases`
+2. Click "Draft a new release"
+3. Select the tag that was just created (e.g., `v1.0.1`)
+4. Upload the generated `.tgz` file (e.g., `mariadb-workspace-ui-1.0.1.tgz`)
+5. Add release notes
+6. Click "Publish release"
 
 **Manual Release (if needed):**
 
 ```bash
-# 1. Build
-npm run build
-
-# 2. Commit built files
-git add mariadb-workspace
-git commit -m "chore: update build files"
-
-# 3. Version bump
+# 1. Version bump
 npm version patch  # or minor/major
 
-# 4. Push
+# 2. Build and create tarball
+npm run pack:release
+
+# 3. Push
 git push && git push --tags
+
+# 4. Upload the .tgz file to GitHub Releases
 ```
 
 ---

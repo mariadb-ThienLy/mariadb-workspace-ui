@@ -1,0 +1,22 @@
+# Source files (only ship built files)
+src/
+public/
+test/
+.vscode/
+
+# Build config
+vite.config.js
+index.html
+.eslintrc.cjs
+.prettierrc.json
+
+# Development files
+node_modules/
+*.log
+.DS_Store
+.env*
+
+# Git files
+.git/
+.gitignore
+.github/
