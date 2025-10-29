@@ -75,6 +75,98 @@ app.mount('#app')
 
 ---
 
+## CDN Usage (No Bundler)
+
+If you want to use the web component directly from a CDN without npm or a bundler:
+
+### Single HTML File Example
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MariaDB Workspace UI - CDN Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="https://use.typekit.net/vme5kwy.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/monaco-editor@0.33.0/min/vs/editor/editor.main.css"
+    />
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      mariadb-workspace {
+        display: block;
+        height: 100%;
+        padding: 24px;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Polyfill Node-ish globals that some ESM bundles read -->
+    <script>
+      window.process ||= { env: { NODE_ENV: 'production' } }
+      window.global ||= window
+    </script>
+
+    <!-- Load monaco-editor web-worker -->
+    <script>
+      window.MonacoEnvironment = {
+        getWorkerUrl: function (moduleId, label) {
+          const base = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.33.0/min/vs'
+          const workerPath = `${base}/base/worker/workerMain.js`
+          // Use a blob to bypass cross-origin restrictions
+          return URL.createObjectURL(
+            new Blob([`importScripts("${workerPath}");`], { type: 'text/javascript' })
+          )
+        },
+      }
+    </script>
+
+    <!-- Load Monaco Editor -->
+    <script type="module">
+      import * as monaco from 'https://esm.sh/monaco-editor@0.33.0'
+      window.monaco = monaco
+    </script>
+
+    <!-- Load web component -->
+    <script type="module">
+      await import(
+        'https://cdn.jsdelivr.net/gh/mariadb-ThienLy/mariadb-workspace-ui@v1.0.0/mariadb-workspace/index.js'
+      )
+      console.log('Web component loaded')
+    </script>
+
+    <!-- The Web Component -->
+    <mariadb-workspace></mariadb-workspace>
+  </body>
+</html>
+```
+
+### Serving the HTML File
+
+Since the example uses ES modules, you must serve it over HTTP (not `file://`):
+
+```bash
+# Option 1: Python (built-in)
+python3 -m http.server 8080
+
+# Option 2: Node serve
+npx serve . -l 8080
+
+# Then open http://localhost:8080
+```
+
+---
+
 ## Features
 
 - 🎨 Built with Vue 3 + Vuetify
