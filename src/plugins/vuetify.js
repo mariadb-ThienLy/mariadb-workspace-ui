@@ -93,8 +93,6 @@ export default createVuetify({
   theme: {
     defaultTheme: 'vuetifyMxsTheme',
     themes: { vuetifyMxsTheme },
-    scope: '#mariadb-workspace',
-    stylesheetId: 'mariadb-workspace',
   },
   defaults: {
     VTextField: { variant: 'outlined', ...commonProps },
