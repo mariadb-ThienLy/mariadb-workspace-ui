@@ -189,8 +189,6 @@ Monaco Editor is **not bundled** with this web component. Instead, it's a peer d
 
 - Node.js >= 20
 - Monaco Editor ^0.33.0
-- Vue 3 (host application)
-- Vite (recommended)
 
 ---
 
