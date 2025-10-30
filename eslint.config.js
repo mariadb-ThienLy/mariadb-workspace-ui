@@ -27,6 +27,18 @@ export default [
   },
   { name: 'files-to-ignore', ignores: ['**/coverage/**'] },
   {
+    name: 'scripts-exception',
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: {
+        process: 'readonly',
+      },
+    },
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  {
     files: ['assets/icons/*.vue'],
     rules: { 'vue/multi-word-component-names': 'off' },
   },

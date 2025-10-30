@@ -46,6 +46,5 @@ customElements.whenDefined('mariadb-workspace').then(() => {
   const MariadbWorkspaceElement = customElements.get('mariadb-workspace')
   if (MariadbWorkspaceElement) {
     MariadbWorkspaceElement.prototype.queryConnService = queryConnService
-    console.info('queryConnService attached to mariadb-workspace prototype')
   }
 })

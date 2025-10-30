@@ -32,9 +32,10 @@
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
     "pack:release": "npm run build && npm pack",
-    "release:patch": "npm version patch && npm run pack:release && git push && git push --tags",
-    "release:minor": "npm version minor && npm run pack:release && git push && git push --tags",
-    "release:major": "npm version major && npm run pack:release && git push && git push --tags"
+    "release:patch": "node scripts/release.js patch",
+    "release:minor": "node scripts/release.js minor",
+    "release:major": "node scripts/release.js major",
+    "release:force": "node scripts/release.js force"
   },
   "engines": {
     "node": ">=20"

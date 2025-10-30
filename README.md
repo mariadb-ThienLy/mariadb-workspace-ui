@@ -269,7 +269,7 @@ Monaco Editor is **not bundled** with this web component. Instead, it's a peer d
 
 ### For Maintainers
 
-**Creating a New Release:**
+**Creating a New Release (Fully Automated):**
 
 ```bash
 # Patch release (1.0.0 -> 1.0.1)
@@ -288,16 +288,22 @@ The release script automatically:
 2. ✅ Creates a Git tag
 3. ✅ Builds the web component
 4. ✅ Creates a tarball (`.tgz` file)
-5. ✅ Pushes tag to GitHub
+5. ✅ Pushes commits and tags to GitHub
+6. ✅ Creates GitHub Release with tarball attached
 
-**After running the release script:**
+**That's it!** The entire release is automated in one command.
 
-1. Go to GitHub Releases: `https://github.com/mariadb-ThienLy/mariadb-workspace-ui/releases`
-2. Click "Draft a new release"
-3. Select the tag that was just created (e.g., `v1.0.1`)
-4. Upload the generated `.tgz` file (e.g., `mariadb-workspace-ui-1.0.1.tgz`)
-5. Add release notes
-6. Click "Publish release"
+**Force Release (Development/Testing Only):**
+
+```bash
+# Re-release the current version (e.g., v1.0.0)
+npm run release:force
+```
+
+⚠️ **Warning:** This will delete and recreate the current version's release. Useful for:
+- Testing the release process
+- Fixing mistakes before users install
+- **Never use on production releases that users depend on**
 
 **Manual Release (if needed):**
 
@@ -311,7 +317,10 @@ npm run pack:release
 # 3. Push
 git push && git push --tags
 
-# 4. Upload the .tgz file to GitHub Releases
+# 4. Create GitHub Release
+gh release create v1.0.1 mariadb-workspace-ui-1.0.1.tgz \
+  --title "v1.0.1" \
+  --notes "Release notes here"
 ```
 
 ---
