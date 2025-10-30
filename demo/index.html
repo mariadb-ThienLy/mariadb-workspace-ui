@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>MariaDB Workspace UI - CDN Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <link rel="icon" href="../public/favicon.ico" />
     <link rel="stylesheet" href="https://use.typekit.net/vme5kwy.css" />
 
     <link
@@ -26,7 +26,7 @@
       }
     </style>
   </head>
-  <body>
+  <body style="padding: 24px">
     <!-- Polyfill Node-ish globals that some ESM bundles read -->
     <script>
       window.process ||= { env: { NODE_ENV: 'production' } }
@@ -53,15 +53,34 @@
       window.monaco = monaco
     </script>
 
-    <!-- Load web component -->
+    <!-- Load web component from local dist folder -->
     <script type="module">
-      await import(
-        'https://cdn.jsdelivr.net/gh/mariadb-ThienLy/mariadb-workspace-ui@v1.0.0/dist/index.js'
-      )
-      console.log('Web component loaded')
+      try {
+        await import('./dist/index.js')
+        console.log('Web component loaded from local dist')
+      } catch (error) {
+        console.error('Failed to load web component. Did you run "node download-dist.js"?')
+        console.error(error)
+      }
     </script>
 
+    <p class="text-info mt-4">
+      Below button call worksheetService.deleteAll() from mariadb-workspace web component
+    </p>
+    <button id="delete-all-worksheets">Delete all worksheets</button>
+    <button id="add-a-worksheet">Add a worksheet</button>
     <!-- The Web Component -->
     <mariadb-workspace></mariadb-workspace>
+    <!-- Example: Access the exposed worksheetService from the host app -->
+    <script>
+      document.getElementById('delete-all-worksheets').addEventListener('click', () => {
+        const workspaceElement = document.querySelector('mariadb-workspace')
+        workspaceElement.worksheetService.deleteAll()
+      })
+      document.getElementById('add-a-worksheet').addEventListener('click', async () => {
+        const workspaceElement = document.querySelector('mariadb-workspace')
+        await workspaceElement.worksheetService.insertBlank()
+      })
+    </script>
   </body>
 </html>

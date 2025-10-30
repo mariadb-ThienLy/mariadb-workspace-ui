@@ -3,21 +3,15 @@
  *
  * This is UNPUBLISHED PROPRIETARY SOURCE CODE AND A TRADE SECRET of MariaDB plc, www.mariadb.com
  */
-import { t as typy } from 'typy'
 import ErdTaskTmp from '@/store/orm/models/ErdTaskTmp'
 import EtlTaskTmp from '@/store/orm/models/EtlTaskTmp'
 import QueryEditor from '@/store/orm/models/QueryEditor'
 import QueryEditorTmp from '@/store/orm/models/QueryEditorTmp'
-import QueryTabTmp, { QUERY_RESULT_FIELDS } from '@/store/orm/models/QueryTabTmp'
+import QueryTabTmp from '@/store/orm/models/QueryTabTmp'
 import Worksheet from '@/store/orm/models/Worksheet'
 import WorksheetTmp from '@/store/orm/models/WorksheetTmp'
 import worksheetService from '@/services/worksheetService'
-/* import queryConnService from '@wsServices/queryConnService' */
 import store from '@/store'
-/* import queryHttp from '@lib/workspace/queryHttp'
-import { exeSql } from '@wsServices/queryHelper' */
-/* import { quotingIdentifier } from '@/utils'
-import { QUERY_LOG_TYPE_MAP } from '@/constants' */
 
 /**
  * Initialize entities that will be kept only in memory for all worksheets and queryTabs
@@ -64,48 +58,6 @@ async function init({ userPermission = {} } = {}) {
       data: { request_config: { baseURL: '/' } },
     })
   })
-  /*  await queryConnService.validateConns() */
 }
 
-/**
- * @param {string} param.connId - connection id
- * @param {boolean} [param.isCreating] - is creating a new table
- * @param {string} [param.schema] - schema name
- * @param {string} [param.name] - table name
- * @param {string} [param.actionName] - action name
- * @param {function} param.successCb - success callback function
- */
-/* async function exeDdlScript({
-  connId,
-  isCreating = false,
-  schema,
-  name,
-  successCb,
-  actionName = '',
-}) {
-  let action
-  if (actionName) action = actionName
-  else {
-    const targetObj = `${quotingIdentifier(schema)}.${quotingIdentifier(name)}`
-    action = `Apply changes to ${targetObj}`
-    if (isCreating) action = `Create ${targetObj}`
-  }
-  const [error] = await exeSql({
-    connId,
-    sql: store.state.workspace.exec_sql_dlg.sql,
-    action,
-    queryType: QUERY_LOG_TYPE_MAP.USER_QUERY,
-  })
-  store.commit('workspace/SET_EXEC_SQL_DLG', { ...store.state.workspace.exec_sql_dlg, error })
-  if (!error) await typy(successCb).safeFunction()
-}
- */
-/**
- * @param {object} data - queryTabTmp object
- * @returns {boolean}
- */
-function getIsLoading(queryTabTmp) {
-  return QUERY_RESULT_FIELDS.some((field) => typy(queryTabTmp, `${field}.is_loading`).safeBoolean)
-}
-
-export default { init, /*  exeDdlScript, */ getIsLoading }
+export default { init }

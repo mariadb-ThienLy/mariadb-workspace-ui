@@ -17,4 +17,9 @@ function insertBlank(fields = { worksheet_id: uuidv1(), name: 'WORKSHEET' }) {
   Worksheet.commit((state) => (state.active_wke_id = fields.worksheet_id))
 }
 
-export default { insertBlank }
+function deleteAll() {
+  WorksheetTmp.deleteAll()
+  Worksheet.deleteAll()
+}
+
+export default { insertBlank, deleteAll }

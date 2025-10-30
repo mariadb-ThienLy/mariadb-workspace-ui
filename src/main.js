@@ -18,7 +18,8 @@ import store from '@/store'
 import librariesStyles from '@/styles/libraries.css?inline'
 import appStyles from '@/styles/index.scss?inline'
 import vuetifyEntryStyles from '@/styles/vuetify-entry.scss?inline'
-import queryConnService from '@/services/queryConnService'
+import worksheetService from '@/services/worksheetService'
+import workspaceService from '@/services/workspaceService'
 
 const vuetifyThemeStyles = vuetify.theme.styles.value
 
@@ -40,11 +41,12 @@ createWebComponent({
   },
 })
 
-// Expose queryConnService methods to the custom element
+// Expose worksheetService, workspaceService methods to the custom element
 // Wait for the custom element to be defined before attaching to prototype
 customElements.whenDefined('mariadb-workspace').then(() => {
   const MariadbWorkspaceElement = customElements.get('mariadb-workspace')
   if (MariadbWorkspaceElement) {
-    MariadbWorkspaceElement.prototype.queryConnService = queryConnService
+    MariadbWorkspaceElement.prototype.worksheetService = worksheetService
+    MariadbWorkspaceElement.prototype.workspaceService = workspaceService
   }
 })

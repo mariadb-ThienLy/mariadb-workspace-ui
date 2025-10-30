@@ -10,6 +10,9 @@ lerna-debug.log*
 # Release artifacts
 *.tgz
 
+# demo artifacts
+demo/dist/
+
 node_modules
 .DS_Store
 dist

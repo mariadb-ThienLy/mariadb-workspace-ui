@@ -28,7 +28,7 @@ export default [
   { name: 'files-to-ignore', ignores: ['**/coverage/**'] },
   {
     name: 'scripts-exception',
-    files: ['scripts/**/*.js'],
+    files: ['scripts/**/*.js', 'demo/**/*.js'],
     languageOptions: {
       globals: {
         process: 'readonly',
