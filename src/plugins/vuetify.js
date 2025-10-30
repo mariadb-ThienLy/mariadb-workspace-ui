@@ -93,8 +93,18 @@ export default createVuetify({
   theme: {
     defaultTheme: 'vuetifyMxsTheme',
     themes: { vuetifyMxsTheme },
+    scope: '#mariadb-workspace',
+    stylesheetId: 'mariadb-workspace',
   },
   defaults: {
+    global: {
+      /**
+       * Disable teleporting so that dialog and overlay components
+       * are not attached as siblings of `VApp`, since style scope
+       * is applied to the `#mariadb-workspace` element.
+       */
+      attach: true,
+    },
     VTextField: { variant: 'outlined', ...commonProps },
     VSelect: {
       variant: 'outlined',
