@@ -33,6 +33,7 @@ createWebComponent({
   createApp,
   getCurrentInstance,
   replaceRootWithHostInCssFramework: true,
+  hideSlotContentUntilMounted: true,
   asyncInitialization: async () => {
     /* Make vuex-persist work with localForage indexedDB by await store.restored
      *  https://github.com/championswimmer/vuex-persist#how-to-know-when-async-store-has-been-replaced

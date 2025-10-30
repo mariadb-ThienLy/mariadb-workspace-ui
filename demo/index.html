@@ -70,7 +70,11 @@
     <button id="delete-all-worksheets">Delete all worksheets</button>
     <button id="add-a-worksheet">Add a worksheet</button>
     <!-- The Web Component -->
-    <mariadb-workspace></mariadb-workspace>
+    <mariadb-workspace target-id="server_0" native-params="{}" class="pa-6">
+      <div class="conn-obj-select" hidden slot="conn-obj-select">
+        Host app provide connection items dropdown here
+      </div>
+    </mariadb-workspace>
     <!-- Example: Access the exposed worksheetService from the host app -->
     <script>
       document.getElementById('delete-all-worksheets').addEventListener('click', () => {

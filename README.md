@@ -65,11 +65,16 @@ app.mount('#app')
 
 ```vue
 <script setup>
-// Nothing to import here; the element is registered in regMariaDBWorkspace.js
+const targetId = ref('server_0')
+const nativeParams = ref('{}') // Must be serialized to json string
 </script>
 
 <template>
-  <mariadb-workspace />
+  <mariadb-workspace :target-id="targetId" :native-params="nativeParams" class="pa-6">
+    <div class="conn-obj-select" hidden slot="conn-obj-select">
+      Host app provide connection items dropdown here
+    </div>
+  </mariadb-workspace>
 </template>
 ```
 

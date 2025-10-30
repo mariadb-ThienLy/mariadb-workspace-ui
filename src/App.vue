@@ -1,13 +1,22 @@
 <script setup>
 import workspaceService from '@/services/workspaceService'
 import Worksheet from '@/store/orm/models/Worksheet'
+import { MXS_OBJ_TYPE_MAP } from '@/constants'
+
+defineOptions({ namedSlots: ['conn-obj-select'] })
+
+const props = defineProps({
+  targetId: { type: String, default: '' },
+  nativeParams: { type: String, default: '' },
+})
+const { SERVERS } = MXS_OBJ_TYPE_MAP
 
 const { delay } = useHelpers()
+const store = useStore()
 
 const isInitializing = ref(true)
 const sql = ref('SELECT * FROM mysql.users')
-const selectItem = ref(null)
-const isDlgOpened = ref(false)
+const selectItem = ref(1)
 const testItems = ref([
   { value: 1, title: 'Item 1' },
   { value: 2, title: 'Item 2' },
@@ -15,6 +24,13 @@ const testItems = ref([
 ])
 
 const worksheets = computed(() => Worksheet.all())
+const conn_dlg = computed(() => store.state.workspace.conn_dlg)
+const isConnDlgOpened = computed({
+  get: () => conn_dlg.value.is_opened,
+  set: (v) => store.commit('workspace/SET_CONN_DLG', { ...conn_dlg.value, is_opened: v }),
+})
+
+const nativeParamsObj = computed(() => (props.nativeParams ? JSON.parse(props.nativeParams) : {}))
 
 onMounted(async () => {
   if (worksheets.value.length === 0)
@@ -46,10 +62,19 @@ onMounted(async () => {
           <h3 class="text-h3 font-weight-light text-tertiary">
             Test custom-styled isolated Vuetify components.
           </h3>
-          <VBtn size="small" color="primary" class="my-4" @click="isDlgOpened = true">
-            Open Dialog
+          <VBtn size="small" color="primary" class="my-4" @click="isConnDlgOpened = true">
+            Open connection Dialog
           </VBtn>
-          <BaseDlg v-model="isDlgOpened" title="Test Dialog" :onSave="() => {}" />
+          <BaseConnDlg
+            v-model="isConnDlgOpened"
+            :targetType="SERVERS"
+            :targetId="targetId"
+            :nativeParams="nativeParamsObj"
+          >
+            <template #obj-select="{ props }">
+              <slot name="conn-obj-select" v-bind="props"></slot>
+            </template>
+          </BaseConnDlg>
           <VSelect v-model="selectItem" :items="testItems" width="200px" />
         </VSheet>
       </div>
